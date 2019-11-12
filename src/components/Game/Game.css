@@ -1,0 +1,22 @@
+.board {
+  height: 600px;
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board-cell {
+  height: 200px;
+  width: 200px;
+  display: inline-block;
+}
+
+.game {
+  display: flex;
+}
+
+.control-panel {
+  margin-left: 20px;
+  max-height: 100px;
+  min-width: 200px;
+}
