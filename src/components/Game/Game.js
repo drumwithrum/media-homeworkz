@@ -46,7 +46,7 @@ class Game extends Component {
         </div>
         <div className="control-panel">
           <Button content={isGameInProgress ? 'Reset game' : 'Start game'} onClick={this.startOver}/>
-          {isGameInProgress && this.renderTurnInfo()}
+          {(isGameInProgress && !resultMessage) && this.renderTurnInfo()}
           {resultMessage && this.renderResult()}
         </div>
       </div>
