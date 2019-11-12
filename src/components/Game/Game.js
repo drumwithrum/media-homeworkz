@@ -46,6 +46,7 @@ class Game extends Component {
         </div>
         <div className="control-panel">
           <Button content={isGameInProgress ? 'Reset game' : 'Start game'} onClick={this.startOver}/>
+          {isGameInProgress && this.renderTurnInfo()}
           {resultMessage && this.renderResult()}
         </div>
       </div>
@@ -64,6 +65,11 @@ class Game extends Component {
   renderResult = () => {
     const { resultMessage } = this.state;
     return <div>{resultMessage}</div>
+  }
+
+  renderTurnInfo = () => {
+    const { activePlayer } = this.state;
+    return <div>{`Current turn: ${players[activePlayer].name}(${players[activePlayer].char})`}</div>
   }
 
   onButtonClick = async (boxNumber) => {
@@ -95,7 +101,7 @@ class Game extends Component {
   }
 
   startOver = () => {
-    this.setState(({ isGameInProgress }) => ({ ...initialState, isGameInProgress: true }));
+    this.setState({ ...initialState, isGameInProgress: true });
   }
 }
 
