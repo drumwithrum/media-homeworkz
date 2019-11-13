@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/media-homeworkz/static/css/main.ea1ff000.chunk.css",
+    "main.js": "/media-homeworkz/static/js/main.b5824232.chunk.js",
+    "main.js.map": "/media-homeworkz/static/js/main.b5824232.chunk.js.map",
+    "runtime-main.js": "/media-homeworkz/static/js/runtime-main.dbc45842.js",
+    "runtime-main.js.map": "/media-homeworkz/static/js/runtime-main.dbc45842.js.map",
+    "static/js/2.d6875810.chunk.js": "/media-homeworkz/static/js/2.d6875810.chunk.js",
+    "static/js/2.d6875810.chunk.js.map": "/media-homeworkz/static/js/2.d6875810.chunk.js.map",
+    "index.html": "/media-homeworkz/index.html",
+    "precache-manifest.9c0e0cd869c58f03a3d84b5d5f4f1825.js": "/media-homeworkz/precache-manifest.9c0e0cd869c58f03a3d84b5d5f4f1825.js",
+    "service-worker.js": "/media-homeworkz/service-worker.js",
+    "static/css/main.ea1ff000.chunk.css.map": "/media-homeworkz/static/css/main.ea1ff000.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.dbc45842.js",
+    "static/js/2.d6875810.chunk.js",
+    "static/css/main.ea1ff000.chunk.css",
+    "static/js/main.b5824232.chunk.js"
+  ]
+}
