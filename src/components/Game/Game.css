@@ -1,22 +1,18 @@
-.board {
-  height: 600px;
-  width: 600px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.board-cell {
-  height: 200px;
-  width: 200px;
-  display: inline-block;
-}
-
 .game {
   display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .control-panel {
-  margin-left: 20px;
-  max-height: 100px;
-  min-width: 200px;
+  margin-top: 50px;
+  width: 400px;
+}
+
+.button {
+  border: 3px solid royalblue;
+  max-height: 60px;
 }

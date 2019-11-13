@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Button from './Button';
+import Board from './Board';
+import { getResultMessage, getGameStatus } from './Game.util';
 import './Game.css';
+import { gameStates } from './Game.config';
 
 const winCombinations = [
   [0, 1, 2],
@@ -26,9 +29,9 @@ const players = {
 
 const initialState = {
   activePlayer: 0,
-  gameBoxes: Array(9).fill(undefined),
   isGameInProgress: false,
   resultMessage: '',
+  gameBoxes: Array(9).fill(undefined),
 }
 
 class Game extends Component {
@@ -38,71 +41,48 @@ class Game extends Component {
   }
   
   render() {
-    const { resultMessage, isGameInProgress } = this.state;
+    const {
+      resultMessage,
+      isGameInProgress,
+      activePlayer,
+      gameBoxes,
+    } = this.state;
     return (
       <div className="game">
-        <div className="board">
-          {this.renderButtons()}
-        </div>
+        <Board
+          activePlayer={activePlayer}
+          onBoxClick={this.onBoxClick}
+          gameBoxes={gameBoxes}
+          isActive={isGameInProgress}
+        />
         <div className="control-panel">
-          <Button content={isGameInProgress ? 'Reset game' : 'Start game'} onClick={this.startOver}/>
-          {(isGameInProgress && !resultMessage) && this.renderTurnInfo()}
-          {resultMessage && this.renderResult()}
+          <Button content={(isGameInProgress || resultMessage) ? 'Reset game' : 'Start game'} onClick={this.restartGame} className="button" />
+          {(isGameInProgress && !resultMessage) && (
+            <div>{`Current turn: ${players[activePlayer].name}(${players[activePlayer].char})`}</div>
+          )}
+          {resultMessage && <div>{resultMessage}</div>}
         </div>
       </div>
     );
   }
 
-  renderButtons = () => {
-    const { gameBoxes, isGameInProgress, resultMessage } = this.state;
-    return gameBoxes.map((item, index) => (
-      <div key={`game-box-${index}`} className="board-cell">
-        <Button onClick={() => this.onButtonClick(index)} content={item} disabled={!isGameInProgress || Boolean(item) || Boolean(resultMessage)} />
-      </div>
-    ))
-  }
-
-  renderResult = () => {
-    const { resultMessage } = this.state;
-    return <div>{resultMessage}</div>
-  }
-
-  renderTurnInfo = () => {
-    const { activePlayer } = this.state;
-    return <div>{`Current turn: ${players[activePlayer].name}(${players[activePlayer].char})`}</div>
-  }
-
-  onButtonClick = async (boxNumber) => {
-    await this.reserveBox(boxNumber);
-    this.checkGameStatus();
-    this.setState(({activePlayer}) => ({ activePlayer: activePlayer ? 0 : 1 }))
-  }
-
-  reserveBox = (boxNumber) => {
-    const { activePlayer } = this.state;
-    const content = players[activePlayer].char;
-    this.setState(({gameBoxes}) => ({ gameBoxes: gameBoxes.map((item, index) => index === boxNumber ? content : item) }))
-  }
-
-  checkGameStatus = () => {
+  onBoxClick = boxNumber => {
     const { gameBoxes, activePlayer } = this.state;
-    const gameEndCombination = winCombinations.find(item => gameBoxes[item[0]] && gameBoxes[item[0]] === gameBoxes[item[1]] &&  gameBoxes[item[1]] === gameBoxes[item[2]]);
-    if (gameEndCombination) return this.setResultMessage(`The winner is: ${players[activePlayer].name}`);
-    if (this.areAllBoxesFilled()) this.setResultMessage('Draw');
+    const content = players[activePlayer].char;
+    const updatedBoxes = gameBoxes.map((item, index) => index === boxNumber ? content : item);
+    const gameStatus = getGameStatus(updatedBoxes);
+    this.setState({
+      gameBoxes: updatedBoxes,
+      activePlayer: activePlayer ? 0 : 1,
+      resultMessage: getResultMessage(gameStatus, activePlayer),
+      isGameInProgress: gameStatus === gameStates.inProgress,
+    });
   }
 
-  setResultMessage = (msg) => {
-    this.setState({ resultMessage: msg })
-  }
-
-  areAllBoxesFilled = () => {
-    const { gameBoxes } = this.state;
-    return gameBoxes.filter(item => Boolean(item)).length === gameBoxes.length;
-  }
-
-  startOver = () => {
+  restartGame = () => {
     this.setState({ ...initialState, isGameInProgress: true });
   }
+
 }
 
 export default Game;

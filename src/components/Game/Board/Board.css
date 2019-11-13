@@ -1,0 +1,42 @@
+.board {
+  height: 600px;
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: royalblue;
+}
+
+.board-cell {
+  height: 200px;
+  width: 200px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.board-cell:nth-child(3n+1) {
+  padding-right: 10px;
+  padding-left: 0px;
+}
+
+.board-cell:nth-child(3n+2) {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.board-cell:nth-child(3n+0) {
+  padding-right: 0px;
+  padding-left: 10px;
+}
+
+.board-cell:nth-child(-n+3) {
+  padding-top: 0px;
+  padding-bottom: 10px;
+}
+
+.board-cell:nth-child(n+7) {
+  padding-top: 10px;
+  padding-bottom: 0px;
+}
+
